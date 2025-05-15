@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div class="main">
+    <Navigation class="navigation"/>
     <router-view/>
   </div>
 </template>
@@ -7,9 +8,14 @@
 <script>
 import axios from "axios"
 import db from "./firebase/firebaseinit"
+import Navigation from "./components/Navigation.vue"
 
 export default {
   name: "App",
+  components: {
+    Navigation,
+
+  },
   data() {
     return {
       APIkey: "5c107b0c9179e90811ea58a9ebdd8ed8",
@@ -89,5 +95,11 @@ nav {
       color: #42b983;
     }
   }
+  .main {
+  max-width: 1024px;
+  margin: 0 auto;
+  height: 100vh;
+  
+}
 }
 </style>
