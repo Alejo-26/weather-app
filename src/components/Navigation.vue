@@ -23,6 +23,8 @@ export default {
   background-color: #313640;
 }
 header {
+
+
   nav {
     display: flex;
     color: #fff;

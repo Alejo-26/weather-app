@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <Navigation class="navigation"/>
-    <router-view/>
+    <router-view v-bind:cities="cities"/>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
   created (){
     //this.getCurrentWeather();
     this.getCityWeather();
-  },
+  }, 
   methods: {
 
     getCityWeather() {
@@ -39,7 +39,7 @@ export default {
           if (doc.type == "added"){
             try {
               const response = await axios.get(
-                `https://api.openweathermap.org/data/2.5/weather?q=${doc.doc.data().city}&units=imperial&appid=${this.APIkey}`
+                `https://api.openweathermap.org/data/2.5/weather?q=${doc.doc.data().city}&units=metric&appid=${this.APIkey}`
               );
               const data = response.data;
               //console.log(data)
@@ -51,9 +51,6 @@ export default {
                 .then( () =>{
                   this.cities.push(doc.doc.data());
                 })
-                .then (() => {
-                  console.log(this.cities);
-                });
             }
             catch (err){
               console.log(err);
@@ -65,7 +62,7 @@ export default {
 
     getCurrentWeather (){
       axios
-        .get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=imperial&appid=${this.APIkey}`)
+        .get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.APIkey}`)
         .then((res) => {
           console.log(res)
         })
