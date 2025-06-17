@@ -5,7 +5,7 @@
       <div class="right">
         <i class="far fa-edit"></i>
         <i class="fa fa-sync"></i>
-        <i class="fas fa-plus"></i>
+        <i @click="addCity" class="fas fa-plus"></i>
         <i class="fas fa-home"></i>
       </div>
     </nav>
@@ -15,6 +15,11 @@
 <script>
 export default {
   name: "NavigationBar",
+  methods: {
+    addCity(){
+      this.$emit("add-city")
+    }
+  }
 };
 </script>
 
