@@ -1,8 +1,8 @@
 <template>
   <div class="main">
     <Modal v-if="modalOpen" v-on:close-modal="toggleModal" v-bind:APIkey="APIkey"/>
-    <Navigation v-on:add-city="toggleModal" />
-    <router-view v-bind:cities="cities"/>
+    <Navigation v-on:add-city="toggleModal" v-on:edit-city="toggleEdit"/>
+    <router-view v-bind:cities="cities" v-bind:edit="edit"/>
   </div>
 </template>
 
@@ -24,7 +24,8 @@ export default {
       APIkey: "5c107b0c9179e90811ea58a9ebdd8ed8",
       city: "Milan",
       cities: [],
-      modalOpen:null
+      modalOpen:null,
+      edit:null
     }
 
   },
@@ -40,7 +41,7 @@ export default {
       firebaseDB.onSnapshot( snap => {
         snap.docChanges().forEach( async(doc) => {
           //console.log(doc.doc.data());
-          if (doc.type == "added"){
+          if (doc.type == "added" && !doc.doc.Nd){
             try {
               const response = await axios.get(
                 `https://api.openweathermap.org/data/2.5/weather?q=${doc.doc.data().city}&units=metric&appid=${this.APIkey}`
@@ -59,6 +60,12 @@ export default {
             catch (err){
               console.log(err);
             }
+          } else if (doc.type === "added" && doc.doc.Nd){
+            //this.cities.push(doc.doc.data())
+            //this method does not apply anymore, because doc.doc.Nd was deleted by openweather
+          } else if (doc.type === "removed"){
+            // on the following line i filter the city from the array cities which has been removed
+            this.cities = this.cities.filter((city) => city.city !== doc.doc.data().city);
           }
         });
       });
@@ -73,6 +80,9 @@ export default {
     },
     toggleModal(){
       this.modalOpen = !this.modalOpen;
+    },
+    toggleEdit(){
+      this.edit = !this.edit;
     }
   }
 }
