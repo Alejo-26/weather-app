@@ -6,7 +6,7 @@
         <i @click="editCities" ref="editCities" class="far fa-edit"></i>
         <i @click="reloadApp" class="fa fa-sync"></i>
         <i @click="addCity" class="fas fa-plus"></i>
-        <i class="fas fa-home"></i>
+        <i @click="goToHome" class="fas fa-home"></i>
       </div>
     </nav>
   </header>
@@ -25,6 +25,9 @@ export default {
     editCities(){
       this.$refs.editCities.classList.toggle("edit-active")
       this.$emit("edit-city")
+    },
+    goToHome(){
+      this.$router.push( {name: "AddCity"})
     }
   }
 };
