@@ -14,13 +14,17 @@ export default {
       currentWeather: null,
       loading: true,
       lat:"",
-      lon:""
+      lon:"",
+      currentTime: null,
     };
   },
   created() {
     this.getWeather();
     //With this command i can extract a param from the URL
     //console.log(this.$route.params.city);
+  },
+  beforeDestroy(){
+    this.$emit("resetDays")
   },
   methods: {
     getWeather() {
@@ -39,11 +43,21 @@ export default {
             })
             .then (() => {
               this.loading = false;
-              console.log(this.forecast)
-              console.log(this.currentWeather)
+              this.getCurrentTime();
             })
           });
         });
+    },
+    getCurrentTime(){
+      const dateObject = new Date();
+      this.currentTime = dateObject.getHours();
+      const sunrise = new Date(this.currentWeather.sys.sunrise * 1000).getHours();
+      const sunset = new Date(this.currentWeather.sys.sunset *1000).getHours();
+      if (this.currentTime > sunrise && this.currentTime < sunset) {
+        this.$emit("is-day");
+      } else {
+        this.$emit ("is-night");
+      }
     }
   },
 };
