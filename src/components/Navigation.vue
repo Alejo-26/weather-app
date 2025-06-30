@@ -11,7 +11,7 @@
         </div>
       </nav>
     </header>
-    <header v-else class="container" :class="{day: isDay, night: isNight}">
+    <header v-else class="container" :class="{day: isDay, night:isNight}" >
       <nav>
         <router-link class="router-link" :to="{ name: 'AddCity' }">
           <i class="fas fa-plus"></i>
@@ -52,23 +52,19 @@ export default {
 <style lang="scss" scoped>
 .add-city {
   background-color: #313640;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.day {
-  transition: 500ms ease all;
-  background-color: rgb(59, 150, 249);
-}
-.night {
-  transition: 500ms ease all;
-  background-color: rgb(20, 42, 95);
-}
+
 header {
   z-index: 99;
   position: fixed;
   max-width: 1024px;
   width: 100%;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  top: 0;
+  left: 0;
+
   nav {
     display: flex;
     color: #fff;

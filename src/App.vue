@@ -13,6 +13,8 @@
       v-bind:isNight="isNight"
     />
     <router-view
+      v-bind:isDay="isDay"
+      v-bind:isNight="isNight"
       v-bind:cities="cities"
       v-bind:edit="edit"
       v-bind:APIkey2="APIkey2"
@@ -144,6 +146,19 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.day {
+  transition: 500ms ease all;
+  background-color: rgb(59, 150, 249);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.night {
+  transition: 500ms ease all;
+  background-color: rgb(20, 42, 95);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 nav {
